@@ -3,7 +3,7 @@ import {CalendarList} from 'react-native-calendars';
 
 const initialDate = new Date();
 
-const HorizontalCalendarList = () => {
+const Calendar = () => {
   const [selected, setSelected] = useState(initialDate);
   const markedDates = {
     [selected]: {
@@ -30,4 +30,4 @@ const HorizontalCalendarList = () => {
   );
 };
 
-export default HorizontalCalendarList;
+export default Calendar;

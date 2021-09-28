@@ -16,7 +16,7 @@ function RoundButton({
 
 const styles= (size) => StyleSheet.create({
     radius: {
-        borderRadius: size / 2,
+        borderRadius: size / 6,
         width: size,
         height: size,
         justifyContent: 'center',

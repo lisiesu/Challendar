@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { StyleSheet, Text, SafeAreaView } from "react-native";
 
 
 function GoalModal() {
@@ -11,11 +11,6 @@ function GoalModal() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        paddingTop: 50,
-        paddingHorizontal: 10,
-        backgroundColor: '#fff',
-    },
     text: {
       fontFamily:  'monospace',
         fontSize: 18,
@@ -30,7 +25,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10,
         backgroundColor: '#48D1CC',
-        
     }
 })
 

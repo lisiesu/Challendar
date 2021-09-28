@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",
+    "@react-navigation/bottom-tabs": "^6.0.7",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/stack": "^6.0.7",
     "expo": "~42.0.1",
@@ -25,7 +26,12 @@
     "react-native-web": "~0.13.12"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.9.0",
+    "@types/jest": "^27.0.2",
+    "@types/react": "^17.0.24",
+    "@types/react-native": "^0.65.1",
+    "@types/react-test-renderer": "^17.0.1",
+    "typescript": "^4.4.3"
   },
   "private": true
 }

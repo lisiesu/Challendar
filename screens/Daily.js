@@ -5,36 +5,73 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
-  TextInput,
-  Button,
-  Switch,
 } from "react-native";
 
 import GoalItem from "../GoalItem";
 import GoalInput from "../GoalInput";
-import RoundButton from "../RoundButton";
 
-function Daily(props) {
+function Daily({ navigation }) {
   const [currentDate, setCurrentDate] = useState("");
-  const [value, setValue] = useState("");
   const [enteredGoals, setEnteredGoals] = useState([]);
-  const [done, setDone] = useState(false);
 
   useEffect(() => {
     let day = new Date().toDateString();
     setCurrentDate(day);
   }, []);
 
-  function inputHandler(goal) {
-    setValue(goal);
+  function addGoals() {
+    fetch("http://10.10.22.70:3001/goals", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(enteredGoals),
+    });
   }
 
   function addGoalHandler(title) {
     setEnteredGoals((currentGoals) => [
       ...currentGoals,
-      { id: Math.random().toString(), value: title },
+      {
+        date: new Date().toDateString(),
+        id: Math.random().toString(),
+        value: title,
+        achieved: false,
+      },
     ]);
   }
+
+  function removeGoalHandler(goalId) {
+    setEnteredGoals((currentGoals) => {
+      return currentGoals.filter((goal) => goal.id !== goalId);
+    });
+  }
+
+  function updateGoalHandler(goalId) {
+    setEnteredGoals((currentGoals) => {
+      return currentGoals.map((goal) => {
+        if (goal.id === goalId) {
+          return { ...goal, achieved: !goal.achieved };
+        } else return goal;
+      });
+    });
+  }
+
+  const [quotes, setQuotes] = useState([]);
+
+  const api_url = "https://zenquotes.io/api/random/";
+  async function getapi(url) {
+    const response = await fetch(url);
+    let quotesData = await response.json();
+    setQuotes(quotesData[0]);
+    console.log(quotesData);
+  }
+
+  useEffect(() => {
+    getapi(api_url);
+  }, []);
+
+  console.log(enteredGoals);
 
   return (
     <View style={{ flex: 1 }}>
@@ -44,35 +81,52 @@ function Daily(props) {
 
       <View style={styles.container}>
         <Text style={styles.text}>Daily Goals</Text>
-        <GoalInput onAdd={addGoalHandler}/>
+        <GoalInput onAdd={addGoalHandler} />
 
         <FlatList
           keyExtractor={(item, index) => item.id}
           data={enteredGoals}
-          renderItem={
-            (itemData) => 
-            <GoalItem title={itemData.item.value}></GoalItem>
-
-            //    (
-            //     <View style={styles.goals}>
-            //       <Text>{itemData.item.value}</Text>
-            //       <Switch
-            //         style={styles.switch}
-            //         value={done}
-            //         onValueChange={setDone}
-            //         trackColor="#48D1CC"
-            //       />
-            //     </View>
-            //   )
-          }
+          renderItem={(itemData) => (
+            <GoalItem
+              id={itemData.item.id}
+              title={itemData.item.value}
+              achieved={itemData.item.achieved}
+              onUpdate={updateGoalHandler}
+              onDelete={removeGoalHandler}
+            ></GoalItem>
+          )}
         />
-
-        {/* {enteredGoals.map((goal) => (
-            
-          ))} */}
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={() => {}}>
+      <View style={styles.quote}>
+        <View>
+          <Text style={styles.quoteTitle}>{quotes.a}</Text>
+        </View>
+        <View>
+          <Text style={styles.quoteText}>{quotes.q}</Text>
+          <TouchableOpacity
+            style={styles.switch}
+            onPress={() => {
+              getapi(api_url);
+            }}
+          >
+            <Text style={{ fontSize: 25, color: "white", fontWeight: "bold" }}>
+              🤍
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View></View>
+      </View>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          addGoals();
+          navigation.navigate("Achievements", {
+            achieved: enteredGoals.filter((goal) => goal.achieved === true),
+          });
+        }}
+      >
         <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
     </View>
@@ -80,23 +134,6 @@ function Daily(props) {
 }
 
 const styles = StyleSheet.create({
-  input: {
-    backgroundColor: "#fff",
-    height: 50,
-    width: "85%",
-    borderColor: "grey",
-    // borderColor: '#48D1CC',
-    borderWidth: 2,
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
-    flexDirection: "row",
-  },
-  switch: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   text: {
     fontFamily: "monospace",
     fontWeight: "bold",
@@ -106,8 +143,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    //   alignItems: "center",
-    //   justifyContent: "center",
     padding: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -115,11 +150,7 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     elevation: 5,
   },
-  heading: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
+
   button: {
     height: 40,
     backgroundColor: "#48D1CC",
@@ -136,7 +167,6 @@ const styles = StyleSheet.create({
     height: 80,
     backgroundColor: "#fff",
     padding: 10,
-    // borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.5,
@@ -147,13 +177,26 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 28,
   },
-  goals: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+  quote: {
+    height: 120,
+    backgroundColor: "#48D1CC",
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "grey",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 20,
+  },
+  quoteTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  quoteText: {
+    fontStyle: "italic",
+  },
+  switch: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
 });
 
