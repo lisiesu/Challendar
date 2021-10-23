@@ -12,7 +12,7 @@ To install the dependencies run
 npm i
 ```
 
-<img src="lisiesu/Challendar/master/assets/Challendar.png" />
+<img src="https://github.com/lisiesu/Challendar/blob/master/assets/Challendar.png?raw=true" />
 
 ## Screenshots
 
