@@ -6,9 +6,8 @@ Challendar is a mobile app that incorporates a calendar for setting goals and ch
 
 <p align="center">
 <img src="https://github.com/lisiesu/Challendar/blob/master/assets/Challendar.png?raw=true" height="350"  />
-  </p>
-<br>
-Here is a [video](https://www.youtube.com/watch?v=GR3efTNrj8g) of the app!<br>
+</p>
+Here is a [video](https://www.youtube.com/watch?v=GR3efTNrj8g) of the app!
 
 ## Location
 
