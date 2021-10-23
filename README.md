@@ -12,6 +12,8 @@ To install the dependencies run
 npm i
 ```
 
+<img src="lisiesu/Challendar/master/assets/Challendar.png" />
+
 ## Screenshots
 
 
