@@ -13,10 +13,6 @@ To install the dependencies run
 npm i
 ```
 
-## Screenshots
-
-
-
 ## Getting Started
 
 From the server folder run:
