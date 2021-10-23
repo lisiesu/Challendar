@@ -1,10 +1,8 @@
 # Challendar
-A calendar for setting goals and challenges, keeping track of achievements
-
 
 This is a [React Native](https://reactnative.dev/) project, with [Expo](https://expo.dev/)
 <br>
-Challendar is a movile app that incorporates a calendar for setting goals and challenges, keeping track of your achievements.
+Challendar is a mobile app that incorporates a calendar for setting goals and challenges, keeping track of your achievements.
 
 To install the dependencies run 
 ```bash
