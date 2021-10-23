@@ -2,20 +2,20 @@
 
 This is a [React Native](https://reactnative.dev/) project, with [Expo](https://expo.dev/)
 
-To start the dependencies run 
+To install the dependencies run 
 ```bash
 npm i
 ```
 
 ## Getting Started
 
-First, from the server folder run:
+From the server folder run:
 
 ```bash
 mongod
 ```
 
-Secondly, on a new server terminal, run:
+From the server folder, start a new terminal and run:
 ```bash
 nodemon
 ```
