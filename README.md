@@ -4,10 +4,12 @@ This is a [React Native](https://reactnative.dev/) project, with [Expo](https://
 <br>
 Challendar is a mobile app that incorporates a calendar for setting goals and challenges, keeping track of your achievements.
 
+Here is a [video](https://www.youtube.com/watch?v=GR3efTNrj8g) of the app!
+
 <p align="center">
 <img src="https://github.com/lisiesu/Challendar/blob/master/assets/Challendar.png?raw=true" height="350"  />
 </p>
-Here is a [video](https://www.youtube.com/watch?v=GR3efTNrj8g) of the app!
+
 
 ## Location
 
